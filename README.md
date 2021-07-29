@@ -13,6 +13,12 @@ Three main steps are included in Premnas:
 
 To execute the whole Premnas, we provide the dockers and source code for Premnas users. The way to run above three steps are introduced below respectively. 
 
+## Requirement
+[Docker](https://www.docker.com/) version higher than 19.03.8
+[Python 3.7 ](https://www.python.org/downloads/) or higher as well as [numpy](https://numpy.org/) and [pandas](https://pandas.pydata.org/) packages for the benchmarking
+
+
+
 
 ## Execution
 
