@@ -33,8 +33,8 @@ To execute the whole Premnas, we provide the dockers and source code for Premnas
     ```python=
     git clone https://github.com/jhhung/Premnas.git
     cd Premnas
-    chmod 777 Premnas.sh {Single-cell-data.csv} {Metadata.txt}
-    ./Premnas.sh
+    chmod 777 Premnas-learn-sub.sh {Single-cell-data.csv} {Metadata.txt}
+    ./Premnas-learn-sub.sh
     ```
     
 The outputs of the docker would be like:
