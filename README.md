@@ -60,6 +60,7 @@ Premnas perform digital cytometry through CIBERSORTx. The CIBERSORTx team has pr
 In Premnas, we run the CIBERSORTx docker by:
 
 ```c=
+docker pull cibersortx/fractions
 docker run \
     -v {input_dir_path}:/src/data \
     -v {output_dir_path}:/src/outdir \  
