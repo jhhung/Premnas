@@ -82,6 +82,7 @@ The CIBERSORTx docker would generat a series of file including ```CIBERSORTx_Adj
 
 ```python=
 git clone https://github.com/jhhung/Premnas.git
+cd Premnas
 Treatment-selection.py \
     {CMap-metadata.txt} \
     CIBERSORTx_Adjusted.txt 
