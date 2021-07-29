@@ -30,7 +30,12 @@ To execute the whole Premnas, we provide the dockers and source code for Premnas
     The docker would automatically reads above files as input by their file name.
     
 * Run with script
-    * TODO
+    ```python=
+    git clone https://github.com/jhhung/Premnas.git
+    cd Premnas
+    chmod 777 Premnas.sh {Single-cell-data.csv} {Metadata.txt}
+    ./Premnas.sh
+    ```
     
 The outputs of the docker would be like:
 ```c=
@@ -68,26 +73,27 @@ docker run \
     --perm 500
 ```
 
-Note that the ```Single-cell-profile.txt``` should be the ```Subpopulation-charactistic.txt ``` which has generated in previous step, and the ```bulk.txt``` should be the Cmap database you want to analysis.
+Note that the ```Single-cell-profile.txt``` should be the ```Subpopulation-charactistic.txt ``` which has generated in previous step, and the ```bulk.txt``` should be the CMap database you want to analysis.
 
-The CIBERSORTx docker would generat a series of file including ```CIBERSORTx_Adjusted.txt```, which represented the deconvolution results of Cmap data and would further be used in next step.
+The CIBERSORTx docker would generat a series of file including ```CIBERSORTx_Adjusted.txt```, which represented the deconvolution results of CMap data and would further be used in next step.
 
 ### Analyzing subpopulation change
 
 ```python=
 git clone https://github.com/jhhung/Premnas.git
 Treatment-selection.py \
-    {Cmap-metadata.txt} \
+    {CMap-metadata.txt} \
     CIBERSORTx_Adjusted.txt 
 ```
-* ```Cmap-metadata.txt``` should be the metadata provided in Cmap database. It records the perturbagen dose and time for each sample in Cmap. Note that you should input the right metadata, which is corresponding to the Cmap database you analysis previous digital cytometry step.
+* ```CMap-metadata.txt``` should be the metadata provided in CMap database. It records the perturbagen dose and time for each sample in CMap. Note that you should input the right metadata, which is corresponding to the CMap database you analysis previous digital cytometry step.
 
 The eventually cocktail therapy would be store in file ``` Treatment-selection-output.csv```.
 
 ## Reference
+1. CMap: Lamb, J. et al. The Connectivity Map: using gene-expression signatures to connect small molecules, genes, and disease. Science 313, 1929-1935, doi:10.1126/science.1132939 (2006).
 
-1. ACTIONet: Mohammadi, S., Davila-Velderrain, J. & Kellis, M. A multiresolution framework to characterize single-cell state landscapes. Nature Communications 11, 5399, doi:10.1038/s41467-020-18416-6 (2020).
-2. CIBERSORTx: Newman, A. M. et al. Determining cell type abundance and expression from bulk tissues with digital cytometry. Nature Biotechnology 37, 773-782, doi:10.1038/s41587-019-0114-2 (2019).
+2. ACTIONet: Mohammadi, S., Davila-Velderrain, J. & Kellis, M. A multiresolution framework to characterize single-cell state landscapes. Nature Communications 11, 5399, doi:10.1038/s41467-020-18416-6 (2020).
+3. CIBERSORTx: Newman, A. M. et al. Determining cell type abundance and expression from bulk tissues with digital cytometry. Nature Biotechnology 37, 773-782, doi:10.1038/s41587-019-0114-2 (2019).
 
 
 
