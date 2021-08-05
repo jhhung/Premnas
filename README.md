@@ -59,7 +59,7 @@ Parameter explaination:
         Registered user name of [CIBERSORTx](https://cibersortx.stanford.edu/index.php). 
         
     * -T [CIBERSORTx_token]: 
-        By CIBERSORTx team policy, it is necessary to run CIBERSORTx docker with an  authentication token. The token can be apply on https://cibersortx.stanford.edu/getoken.php .
+        According to CIBERSORTx team policy, it is necessary to run CIBERSORTx docker with an authentication token. The token can be apply on https://cibersortx.stanford.edu/getoken.php .
         
     * -C [CMap_data]: 
         CMap bulk data.
@@ -69,8 +69,8 @@ Parameter explaination:
 
 * Optional.
 
-    * -m [Learning_Mode] (default: False): 
-        If set true, the script would only learn ad hoc subpopulation characteristic but not perform digital cytometry. The learning mode is designed for users who want to do digital cytometry by other tools. Note that we could ommit parameters -U, -T, -C, -M in learning mode.
+    * -m [Learning_Mode] (default: false): 
+        If set true, the script would only learn ad hoc subpopulation characteristic but not perform digital cytometry. The learning mode is designed for users who want to do digital cytometry by other tools. Note that you could ommit parameters -U, -T, -C, -M in learning mode.
         
     * -s [Susceptibility_threshold] (default: 0.9): Threshold used to evaluate the inhibitory effects of each perturbagen-concentration-time pair (PCT pair) for each subpopulation. The value should be set between 0 and 1.
  
