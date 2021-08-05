@@ -62,10 +62,10 @@ Parameter explaination:
         According to CIBERSORTx team policy, it is necessary to run CIBERSORTx docker with an authentication token. The token can be apply on https://cibersortx.stanford.edu/getoken.php .
         
     * -C [CMap_data]: 
-        CMap bulk data.
+        LINCS L1000 CMap level 3 gene expression profiles which can be downloaded from [the GEO website](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE70138) or other bulk gene expression profiles. 
         
     * -M [CMap_metadata]: 
-        CMap metadata used to map probe IDs to gene names.
+        Information of each perturbation experiment in the LINCS L1000 CMap database (e.g., 'GSE70138_Broad_LINCS_inst_info_2017-03-06.txt.gz' on [the GEO website](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE70138))
 
 * Optional.
 
@@ -97,7 +97,6 @@ output_dir
 ```
 
 ## Reference
-1. CMap: Lamb, J. et al. The Connectivity Map: using gene-expression signatures to connect small molecules, genes, and disease. Science 313, 1929-1935, doi:10.1126/science.1132939 (2006).
-
+1. LINCS L1000 CMap: Subramanian, Aravind et al. A Next Generation Connectivity Map: L1000 Platform and the First 1,000,000 Profiles. Cell vol. 171,6 : 1437-1452.e17. doi:10.1016/j.cell.2017.10.049 (2017)
 2. ACTIONet: Mohammadi, S., Davila-Velderrain, J. & Kellis, M. A multiresolution framework to characterize single-cell state landscapes. Nature Communications 11, 5399, doi:10.1038/s41467-020-18416-6 (2020).
 3. CIBERSORTx: Newman, A. M. et al. Determining cell type abundance and expression from bulk tissues with digital cytometry. Nature Biotechnology 37, 773-782, doi:10.1038/s41587-019-0114-2 (2019).
