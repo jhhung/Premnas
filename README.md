@@ -43,10 +43,10 @@ To execute Premnas, we provide a script for Premnas users. The script would auto
 Parameter explaination:
 * Required
 
-    * -I [absoulute_input_dir_path]:
+    * -I [absolute_input_dir_path]:
         Absolute folder path to your all input files, such as single cell GEPs and CMap data.
         
-    * -O [absoulute_output_dir_path]: 
+    * -O [absolute_output_dir_path]: 
         Absolute folder path to your all output files.
         
     * -D [Single_cell_GEPs_data]: 
