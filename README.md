@@ -4,49 +4,81 @@
 ## Information
 
 Workflow of Premnas: 
-![](https://i.imgur.com/D0Nacge.png)
+
+![](https://i.imgur.com/sLydog1.png)
+
 
 Three main steps are included in Premnas:
-1. Learing ad hoc subpopulation characteristic
+1. Learning ad hoc subpopulation characteristic
 2. Performing digital cytometry
 3. Analyzing subpopulation change
 
-To execute the whole Premnas, we provide the dockers and source code for Premnas users. The way to run above three steps are introduced below respectively. 
+To execute Premnas, we provide a script for Premnas users. The script would automatically downlaod two required dockers and run through the whole Premans' workflow.
 
 ## Requirement
-[Docker](https://www.docker.com/) version higher than 19.03.8
-
-[Python 3.7 ](https://www.python.org/downloads/) or higher as well as [numpy](https://numpy.org/) and [pandas](https://pandas.pydata.org/) packages
-
+* [Docker](https://www.docker.com/) version higher than 19.03.8
+* [Python 3.7 ](https://www.python.org/downloads/) or higher as well as [numpy](https://numpy.org/) and [pandas](https://pandas.pydata.org/) packages
+* Registration on [CIBERSORTx](https://cibersortx.stanford.edu/index.php) and get token for CIBERSORTx docker container on https://cibersortx.stanford.edu/getoken.php .
 
 
 
 ## Execution
 
-### Learing ad hoc subpopulation characteristic
+```sh
+> git clone https://github.com/jhhung/Premnas.git
+> cd Premnas
     
-* Run with docker
-    ```cpp=
-    docker pull JHHLAB/Premnas-learn-sub
-    docker run -v {input_dir_path}:/input_dir \-v {output_dir_path}:/output_dir JHHLAB/Premnas-learn-sub
-    ```
-    Make sure there are two files under your input directory path: 
-    * ```Single-cell-data.csv``` : M X N single cell data with M represents the number of genes and N represents the number of cells. 
-    * ```Metadata.txt``` : N X 2 matrix, which each row includes a cell name and the correesponding source of clone.
+#run with the shell script:
+> sh Premnas.sh \
+    -I {absolute_input_dir_path} \
+    -O {absolute_output_dir_path} \
+    -D {single_cell_GEPs_data} \
+    -S {single_cell_source_clone} \
+    -U {CIBERSORTx_username} \
+    -T {CIBERSORTx_token} \
+    -C {CMap_data} \
+    -M {CMap_metadata} \
+```
 
-    The docker would automatically reads above files as input by their file name.
-    
-* Run with script
-    ```python=
-    git clone https://github.com/jhhung/Premnas.git
-    cd Premnas
-    chmod 777 Premnas-learn-sub.sh {Single-cell-data.csv} {Metadata.txt}
-    ./Premnas-learn-sub.sh
-    ```
-    
-The outputs of the docker would be like:
-```c=
-output_dir    
+Parameter explaination:
+* Required
+
+    * -I [absoulute_input_dir_path]:
+        Absolute folder path to your all input files, such as single cell GEPs and CMap data.
+        
+    * -O [absoulute_output_dir_path]: 
+        Absolute folder path to your all output files.
+        
+    * -D [Single_cell_GEPs_data]: 
+        Single cell GEPs data used to learn the subpopulation characteristic.
+        
+    * -S [single_cell_source_clone]: 
+        Source clone labels for all cells. In Premnas, we perform batch corretion for single cells by their source clone.
+        
+    * -U [CIBERSORTx_username]:
+        Registered user name of [CIBERSORTx](https://cibersortx.stanford.edu/index.php). 
+        
+    * -T [CIBERSORTx_token]: 
+        By CIBERSORTx team policy, it is necessary to run CIBERSORTx docker with an  authentication token. The token can be apply on https://cibersortx.stanford.edu/getoken.php .
+        
+    * -C [CMap_data]: 
+        CMap bulk data.
+        
+    * -M [CMap_metadata]: 
+        CMap metadata used to map probe IDs to gene names.
+
+* Optional.
+
+    * -m [Learning_Mode] (default: False): 
+        If set true, the script would only learn ad hoc subpopulation characteristic but not perform digital cytometry. The learning mode is designed for users who want to do digital cytometry by other tools. Note that we could ommit parameters -U, -T, -C, -M in learning mode.
+        
+    * -s [Susceptibility_threshold] (default: 0.9): Threshold used to evaluate the inhibitory effects of each perturbagen-concentration-time pair (PCT pair) for each subpopulation. The value should be set between 0 and 1.
+ 
+    * -c [Consistency_threshold] (default: 0.8): Threshold used to check whether the perturbagen of the PCT pair with higher doses would also perform well. Each PCT pair should past this consistency test before adding to cocktail therapy.
+
+Premnas would generate several files under the ```absolute_output_dir_path``` user has set previously:
+```c
+output_dir   
     |--- Subpopulation-charactistic.txt 
     |       // Main output, would be used for digital cytometry (CIBERSORTx)
     |--- ACTIONet-model
@@ -56,53 +88,16 @@ output_dir
     |--- pruned-assigned-subpopulation.txt
     |       // Subpopulation labels of each cells after pruning some cells by considering archetypal explicit function
     |--- subpopulation-visualization.pdf
-            // UMAP visualization of single cells.
-    
+    |        // UMAP visualization of single cells.
+    |--- CIBERSORTx_Adjusted.txt
+    |        //Deconvolution result generate by CIBERSORTx
+    |--- Treatment-selection-output.csv
+            //Eventually selected cocktail therapy
+            
 ```
-
-### Digital cytometry
-
-Premnas perform digital cytometry through CIBERSORTx. The CIBERSORTx team has provided docker, which could download in https://cibersortx.stanford.edu/download.php, to allow user to execute CIBERSORTx.
-
-In Premnas, we run the CIBERSORTx docker by:
-
-```c=
-docker pull cibersortx/fractions
-docker run \
-    -v {input_dir_path}:/src/data \
-    -v {output_dir_path}:/src/outdir \  
-     cibersortx/fractions \
-    --username email_address_registered_on_CIBERSORTx_website \
-    --token token_obtained_from_CIBERSORTx_website \
-    --single_cell TRUE \
-    --refsample {Single-cell-profile.txt} \ 
-    --mixture {Bulk.txt} --fraction 0 \
-    --rmbatchSmode TRUE \
-    --perm 500
-```
-
-Note that the ```Single-cell-profile.txt``` should be the ```Subpopulation-charactistic.txt ``` which has generated in previous step, and the ```bulk.txt``` should be the CMap database you want to analysis.
-
-The CIBERSORTx docker would generat a series of file including ```CIBERSORTx_Adjusted.txt```, which represented the deconvolution results of CMap data and would further be used in next step.
-
-### Analyzing subpopulation change
-
-```python=
-git clone https://github.com/jhhung/Premnas.git
-cd Premnas
-Treatment-selection.py \
-    {CMap-metadata.txt} \
-    CIBERSORTx_Adjusted.txt 
-```
-* ```CMap-metadata.txt``` should be the metadata provided in CMap database. It records the perturbagen dose and time for each sample in CMap. Note that you should input the right metadata, which is corresponding to the CMap database you analysis previous digital cytometry step.
-
-The eventually cocktail therapy would be store in file ``` Treatment-selection-output.csv```.
 
 ## Reference
 1. CMap: Lamb, J. et al. The Connectivity Map: using gene-expression signatures to connect small molecules, genes, and disease. Science 313, 1929-1935, doi:10.1126/science.1132939 (2006).
 
 2. ACTIONet: Mohammadi, S., Davila-Velderrain, J. & Kellis, M. A multiresolution framework to characterize single-cell state landscapes. Nature Communications 11, 5399, doi:10.1038/s41467-020-18416-6 (2020).
 3. CIBERSORTx: Newman, A. M. et al. Determining cell type abundance and expression from bulk tissues with digital cytometry. Nature Biotechnology 37, 773-782, doi:10.1038/s41587-019-0114-2 (2019).
-
-
-

@@ -271,7 +271,7 @@ if __name__ == '__main__':
     list_result = list(LIST_SOLUTION for LIST_SOLUTION,_ in itertools.groupby(LIST_SOLUTION))
 
 #    with open('{}_solution_list_t{}_cont{}.csv'.format(sys.argv[2].rsplit('.',0)[0], threshold, con_threshold),"w+") as f:
-    with open('Treatment-selection-output.csv.csv',"w+") as f:
+    with open('Treatment-selection-output.csv',"w+") as f:
         writer = csv.writer(f)
         writer.writerows(list_result)
 
