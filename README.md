@@ -76,7 +76,7 @@ Parameter explaination:
  
     * -c [Consistency_threshold] (default: 0.8): Threshold used to check whether the perturbagen of the PCT pair with higher doses would also perform well. Each PCT pair should past this consistency test before adding to cocktail therapy.
 
-Premnas would generate several files under the ```absolute_output_dir_path``` user has set previously:
+Premnas would generate several files under the ```absolute_output_dir_path```, which user has set previously:
 ```c
 output_dir   
     |--- Subpopulation-charactistic.txt 
