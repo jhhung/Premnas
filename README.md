@@ -68,7 +68,7 @@ output_dir
             
 ```
 
-### Run the specific step of Premans
+### Run the specific step of Premnas
 
 #### 1. Learning ad hoc subpopulation characteristic:
 
