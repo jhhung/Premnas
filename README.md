@@ -13,13 +13,13 @@ Three main steps are included in Premnas:
 2. Performing digital cytometry
 3. Analyzing subpopulation change
 
-To execute Premnas, we provide a script for Premnas users. The script would automatically downlaod two required dockers and run through the whole Premans' workflow.
+To execute Premnas, we provide a script for Premnas users. The script would automatically download two required dockers and run through the whole Premans' workflow.
 
 ## Requirement
 * [Docker](https://www.docker.com/) version higher than 19.03.8
 * [Python 3.7 ](https://www.python.org/downloads/) or higher as well as [numpy](https://numpy.org/) and [pandas](https://pandas.pydata.org/) packages
 * Registration on [CIBERSORTx](https://cibersortx.stanford.edu/index.php) and get token for CIBERSORTx docker container on https://cibersortx.stanford.edu/getoken.php .
-* [cmapPy](https://pypi.org/project/cmapPy/) should be installed if expect CMap database automatically downlaod. 
+* [cmapPy](https://pypi.org/project/cmapPy/) should be installed if expect CMap database automatically download. 
 
 
 
