@@ -68,7 +68,7 @@ output_dir
             
 ```
 
-### Run the specific step of Premnas
+### Run the specific step of Premans
 
 #### 1. Learning ad hoc subpopulation characteristic:
 
@@ -87,10 +87,10 @@ Parameter explanation:
         Absolute folder path to your all output files.   
 
 * -single_cell [Single_cell_GEPs_data]: 
-        Single cell GEPs data used to learn the subpopulation characteristic.
+        Single cell GEPs data used to learn the subpopulation characteristic. The first row of the file including all of the single cell IDs, while other row represent a specific gene the its corresponding gene expression in each cell. The format of this file could be check in ```data/GSE114459.csv```.
 
 * -sc_source [single_cell_source_clone]: 
-        Source clone labels for all cells. In Premnas, we perform batch corretion for single cells by their source clone.
+        Source clone labels for all cells. In Premnas, we perform batch corretion for single cells by their source clone. Each row in this text file including two elements: single cell ID and its corresponding source. The format of this file could be check in ```data/GSE114459_source.txt```
 
 #### 2. Performing digital cytometry
 
@@ -117,8 +117,8 @@ Parameter explanation:
 * -token [CIBERSORTx_token]: 
         According to CIBERSORTx team policy, it is necessary to run CIBERSORTx docker with an authentication token. The token can be apply on https://cibersortx.stanford.edu/getoken.php .
 
-* -mixture [CMap_metadata]: 
-        CMap metadata used to map probe IDs to gene names.
+* -mixture [CMap mixture data]: 
+        LINCS L1000 CMap level 3 gene expression profiles. The file could be obtained from our script, whcih automatically download from the [GEO website](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE70138), see **Download the CMap database with specific cell line**.
         
 * -sub_characteristic [Subpopulation characteristic]: 
         Subpopulation characteristic file, which could generate by the previous step of Premnas.
@@ -139,7 +139,7 @@ Parameter explanation:
         Absolute folder path to your all output files.
         
 * -metadata [CMap_metadata]: 
-        CMap metadata used to map probe IDs to gene names.
+        Information of each perturbation experiment in the LINCS L1000 CMap database (e.g., 'GSE70138_Broad_LINCS_inst_info_2017-03-06.txt.gz' on the [GEO website](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE70138)) The metadata could also be generate by our script, see **Download the CMap database with specific cell line**. 
 
 ### Download the CMap database with specific cell line
 
